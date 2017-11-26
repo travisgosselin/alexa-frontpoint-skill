@@ -1,0 +1,14 @@
+{
+  "name": "alexa-frontpoint-skill",
+  "version": "1.2.0",
+  "description": "Alexa FrontPoint Security ARM / DISARM skill.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "author": "Travis Gosselin <travis@travisgosselin.com>",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^1.7.3"
+  }
+}
