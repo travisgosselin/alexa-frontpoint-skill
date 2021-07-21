@@ -1,0 +1,264 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Analytics.Vsts.Gates",
+    "version": "v1"
+  },
+  "paths": {
+    "/v1/change-management/release": {
+      "post": {
+        "tags": [
+          "ChangeManagement"
+        ],
+        "summary": "Requests a change ticket status or creation based on incoming request details from a Release.",
+        "requestBody": {
+          "description": "The incoming request body of the change.",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseChangeRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseChangeRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseChangeRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReleaseChangeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/change-management/pipeline": {
+      "post": {
+        "tags": [
+          "ChangeManagement"
+        ],
+        "summary": "Requests a change ticket status or creation based on incoming request details from a pipeline.",
+        "requestBody": {
+          "description": "The incoming request body of the change.",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PipelineChangeRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PipelineChangeRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PipelineChangeRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PipelineChangeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/jira/metadata": {
+      "get": {
+        "tags": [
+          "Jira"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ReleaseChangeRequest": {
+        "type": "object",
+        "properties": {
+          "preview": {
+            "type": "boolean"
+          },
+          "project_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "release_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "environment": {
+            "type": "string",
+            "nullable": true
+          },
+          "service_id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChangeResponse": {
+        "type": "object",
+        "properties": {
+          "approved": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "ticket_actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ticket_key": {
+            "type": "string",
+            "nullable": true
+          },
+          "ticket_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "workflow_finished": {
+            "type": "boolean"
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChangeType": {
+        "enum": [
+          "Open",
+          "Start",
+          "Finish"
+        ],
+        "type": "string"
+      },
+      "PipelineChangeRequest": {
+        "type": "object",
+        "properties": {
+          "preview": {
+            "type": "boolean"
+          },
+          "project_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "pipeline_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "stage": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/ChangeType"
+          },
+          "service_id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Identity Service Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\", provide value: \"Bearer {token}\"",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}
