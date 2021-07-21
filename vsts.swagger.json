@@ -57,7 +57,8 @@
               }
             }
           }
-        }
+        },
+        "x-internal": true
       }
     },
     "/v1/change-management/pipeline": {
@@ -258,7 +259,8 @@
   },
   "security": [
     {
-      "Bearer": [ ]
+      "Bearer": []
     }
-  ]
+  ],
+  "servers": []
 }
