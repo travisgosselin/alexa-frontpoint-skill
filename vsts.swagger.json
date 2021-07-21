@@ -246,6 +246,18 @@
           }
         },
         "additionalProperties": false
+      },
+      "My-Model": {
+        "title": "My-Model",
+        "type": "object",
+        "x-tags": [
+          "test"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {
